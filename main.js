@@ -5,12 +5,12 @@ $(document).ready(function () {
         })
         //        console.log(result)
         $('.btExcluir').click(function () {
-            alert('curso/' + $(this).attr('data-id'))
             $.ajax({
                 method: 'DELETE',
-                url: 'curso/' + $(this).attr('data-id')
-            }).done(function () {
-                window.location.href = 'http://localhost/ifc-cursos/';
+                url: 'curso/' + $(this).attr('data-id'),
+                success: function(){
+                    window.location.href = 'http://localhost/ifc-cursos/';
+                }
             })
         })
         $('.btAlt').click(function () {
@@ -25,6 +25,10 @@ $(document).ready(function () {
 
                 $('#div-form').css({
                     'display': 'block'
+                })
+
+                $('#btn-add').css({
+                    'display': 'none'
                 })
 
                 $('#nome').val(data.nome);
@@ -57,9 +61,10 @@ $(document).ready(function () {
                 data: JSON.stringify(json),
                 headers: {
                     "Content-Type": "application/json"
+                },
+                success: function(){
+                    window.location.href = 'http://localhost/ifc-cursos/';
                 }
-            }).done(function () {
-                window.location.href = 'http://localhost/ifc-cursos/';
             })
         })
         $('#btn-new').click(function (e) {

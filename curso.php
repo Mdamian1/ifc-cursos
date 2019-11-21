@@ -37,9 +37,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
         if ($cursos->SetCurso($nome, $grau, $campus, $semestres, $cargaHoraria, $vagas, $turno)){        
             //retornar status 201
-            echo(json_encode(array('mensagem', 'Incluído com sucesso!')));
+            http_response_code(201);
+            echo(json_encode(array('mensagem' => 'Incluído com sucesso!')));
         }else{
-            echo(json_encode(array('mensagem', 'Não inserido!')));
+            echo(json_encode(array('mensagem' => 'Não inserido!')));
         }
         break;
         
@@ -56,11 +57,19 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'PUT':
 
 //        $cursos->PutCurso($id_curso, $nome, $grau, $campus, $semestres, $cargaHoraria, $vagas, $turno);
-        $cursos->PutCurso($_GET['id_curso'], $nome, $grau, $campus, $semestres, $cargaHoraria, $vagas, $turno);
+        if ($cursos->PutCurso($_GET['id_curso'], $nome, $grau, $campus, $semestres, $cargaHoraria, $vagas, $turno)){
+            echo(json_encode(array('mensagem' => 'Alterado com sucesso!')));
+        } else {
+            echo(json_encode(array('mensagem' => 'Não alterado.')));
+        }
         break;
         
     case 'DELETE':
-        $cursos->DelCurso($_GET['id_curso']);
+        if ($cursos->DelCurso($_GET['id_curso'])){
+            echo(json_encode(array('mensagem' => 'Excluido com sucesso!')));
+        } else {
+            echo(json_encode(array('mensagem' => 'Não excluido.')));
+        }
         break;
         
     default:
