@@ -58,7 +58,7 @@ class Cursos {
     public function GetCursos() {
         include_once "conexao.php";
         
-        $stmt = $conn->prepare('SELECT id_curso, nome, grau, campus, semestres, cargaHoraria, vagas, turno FROM cursos ORDER BY campus');
+        $stmt = $conn->prepare('SELECT id_curso, nome, grau, campus, semestres, cargaHoraria, vagas, turno FROM cursos ORDER BY id_curso');
         
         if ($stmt->execute()) {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
